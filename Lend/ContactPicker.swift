@@ -9,7 +9,7 @@
 import Foundation
 import AddressBookUI
 
-class Contact:NSObject,ABPeoplePickerNavigationControllerDelegate{
+class ContactPicker:NSObject,ABPeoplePickerNavigationControllerDelegate{
     let controller:WebViewController
     
     init(controller:WebViewController){
@@ -29,5 +29,7 @@ class Contact:NSObject,ABPeoplePickerNavigationControllerDelegate{
             print("select a person")
             let fn=String(ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue())
             let ln=String(ABRecordCopyValue(person, kABPersonLastNameProperty).takeRetainedValue())
+            print(fn)
+            print(ln)
     }
 }
