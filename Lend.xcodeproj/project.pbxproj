@@ -146,6 +146,7 @@
 				TargetAttributes = {
 					4348B2CE1C990A9C00190593 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = SWPYFK42QC;
 					};
 					4348B2E21C990A9C00190593 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -325,7 +326,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Lend/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bird.Lend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -336,7 +339,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Lend/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bird.Lend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
