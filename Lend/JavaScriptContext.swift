@@ -28,6 +28,7 @@ import JavaScriptCore
     //js呼叫方法，拍照
     func callCamera(){
         print("use camera")
+        imagePicker.openCamera()
     }
     //js呼叫方法，获取联系人
     func callContact(){
@@ -40,7 +41,7 @@ import JavaScriptCore
         if let context=webViewController.webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as? JSContext{
             model=JavaScriptContext(controller: webViewController, jsContext: context)
             print(model)
-            context.setObject(model, forKeyedSubscript:"myswiftmodel")
+            context.setObject(model, forKeyedSubscript:"iosbean")
             context.exceptionHandler={
                 (context,e) in
                 print(e)

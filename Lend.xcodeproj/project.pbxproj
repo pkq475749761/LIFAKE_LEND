@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		431A190A1C9A47FA0003EEF3 /* error.html in Resources */ = {isa = PBXBuildFile; fileRef = 431A19091C9A47FA0003EEF3 /* error.html */; };
 		4348B2D31C990A9C00190593 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348B2D21C990A9C00190593 /* AppDelegate.swift */; };
 		4348B2D81C990A9C00190593 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4348B2D61C990A9C00190593 /* Main.storyboard */; };
 		4348B2DA1C990A9C00190593 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4348B2D91C990A9C00190593 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 		4348B2FB1C99301600190593 /* ExtensionUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348B2FA1C99301600190593 /* ExtensionUIImage.swift */; };
 		4348B2FD1C99305200190593 /* ContactPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348B2FC1C99305200190593 /* ContactPicker.swift */; };
 		4348B2FF1C99308800190593 /* JavaScriptContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348B2FE1C99308800190593 /* JavaScriptContext.swift */; };
+		43F1A20B1C9A9EA2009ADED7 /* error.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 43F1A20A1C9A9EA2009ADED7 /* error.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		431A19091C9A47FA0003EEF3 /* error.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = error.html; sourceTree = "<group>"; };
 		4348B2CF1C990A9C00190593 /* Lend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4348B2D21C990A9C00190593 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4348B2D71C990A9C00190593 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -44,6 +47,7 @@
 		4348B2FA1C99301600190593 /* ExtensionUIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionUIImage.swift; sourceTree = "<group>"; };
 		4348B2FC1C99305200190593 /* ContactPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactPicker.swift; sourceTree = "<group>"; };
 		4348B2FE1C99308800190593 /* JavaScriptContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavaScriptContext.swift; sourceTree = "<group>"; };
+		43F1A20A1C9A9EA2009ADED7 /* error.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = error.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,8 @@
 		4348B2F41C990CBF00190593 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				43F1A20A1C9A9EA2009ADED7 /* error.jpg */,
+				431A19091C9A47FA0003EEF3 /* error.html */,
 				4348B2DE1C990A9C00190593 /* Info.plist */,
 				4348B2D91C990A9C00190593 /* Assets.xcassets */,
 				4348B2D21C990A9C00190593 /* AppDelegate.swift */,
@@ -215,8 +221,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4348B2DD1C990A9C00190593 /* LaunchScreen.storyboard in Resources */,
+				43F1A20B1C9A9EA2009ADED7 /* error.jpg in Resources */,
 				4348B2DA1C990A9C00190593 /* Assets.xcassets in Resources */,
 				4348B2D81C990A9C00190593 /* Main.storyboard in Resources */,
+				431A190A1C9A47FA0003EEF3 /* error.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +439,7 @@
 				4348B2EE1C990A9C00190593 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4348B2EF1C990A9C00190593 /* Build configuration list for PBXNativeTarget "LendUITests" */ = {
 			isa = XCConfigurationList;
@@ -439,6 +448,7 @@
 				4348B2F11C990A9C00190593 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
