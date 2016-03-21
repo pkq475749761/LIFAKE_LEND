@@ -36,10 +36,10 @@ class ImagePicker: NSObject,UIImagePickerControllerDelegate,UINavigationControll
                 
                 //必须，第四步，显示
                 controller.presentViewController(pickerControl, animated: true, completion:{
-                    print("completion")
+                    NSLog("completion")
                 })
             }else{
-                print("当前设备不支持摄像头")
+                NSLog("当前设备不支持摄像头")
             }
             
         }
@@ -48,8 +48,11 @@ class ImagePicker: NSObject,UIImagePickerControllerDelegate,UINavigationControll
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         print("has taken pic")
         var resulrtimage=image.waterMarkedImage("河马大叔水印")
-        
-        resulrtimage=UIImage(data: UIImageJPEGRepresentation(resulrtimage, 1.0)!)!
+        let data=UIImageJPEGRepresentation(resulrtimage, 1.0)!
+        resulrtimage=UIImage(data: data)!
+        data.writeToFile(NSTemporaryDirectory()+"/haha.jpg", atomically: true)
+        print("file://"+NSTemporaryDirectory()+"haha.jpg")
+        controller.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('pic').src='file://\(NSTemporaryDirectory())haha.jpg'")
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
 }

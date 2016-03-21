@@ -17,7 +17,7 @@ class ContactPicker:NSObject,ABPeoplePickerNavigationControllerDelegate{
     }
     
     func openContactList(){
-        print("open")
+        NSLog("openContact")
         let abcontroll=ABPeoplePickerNavigationController()
         abcontroll.peoplePickerDelegate=self
         abcontroll.predicateForSelectionOfProperty=nil
@@ -26,7 +26,7 @@ class ContactPicker:NSObject,ABPeoplePickerNavigationControllerDelegate{
     
     func peoplePickerNavigationController(peoplePicker: ABPeoplePickerNavigationController, didSelectPerson person:
         ABRecord) {
-            print("select a person")
+            NSLog("select a person")
             let fn=String(ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue())
             let ln=String(ABRecordCopyValue(person, kABPersonLastNameProperty).takeRetainedValue())
             print(fn)

@@ -27,12 +27,12 @@ import JavaScriptCore
     }
     //js呼叫方法，拍照
     func callCamera(){
-        print("use camera")
+        NSLog("use camera")
         imagePicker.openCamera()
     }
     //js呼叫方法，获取联系人
     func callContact(){
-        print("use contact")
+        NSLog("use contact")
     }
     
     //创建js模型并注入到webview
@@ -47,7 +47,7 @@ import JavaScriptCore
                 print(e)
             }
         }else{
-            print("创建js模型失败")
+            NSLog("创建js模型失败")
         }
         return model
     }
