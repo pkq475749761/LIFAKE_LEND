@@ -11,19 +11,21 @@ import JavaScriptCore
 
 @objc protocol JavaScriptContextProtocol: JSExport{
     func callCamera();
-    func callContact();
+    func callContact(uid:Int);
 }
 @objc class JavaScriptContext:NSObject,JavaScriptContextProtocol{
     let controller:WebViewController!
     let jsContext:JSContext!
     let imagePicker:ImagePicker!
     let contactPicker:ContactPicker!
+    let contactUploader:ContactUploader!
     
     init(controller:WebViewController,jsContext:JSContext){
         self.controller=controller
         self.jsContext=jsContext
         imagePicker=ImagePicker(controller: controller)
-        contactPicker=ContactPicker(controller: controller)
+        contactPicker=ContactPicker(controller: controller,jsContext:jsContext)
+        contactUploader=ContactUploader()
     }
     //js呼叫方法，拍照
     func callCamera(){
@@ -31,8 +33,10 @@ import JavaScriptCore
         imagePicker.openCamera()
     }
     //js呼叫方法，获取联系人
-    func callContact(){
+    func callContact(uid:Int){
         NSLog("use contact")
+        contactPicker.openContactList()
+        contactUploader.uploadAll(uid)
     }
     
     //创建js模型并注入到webview

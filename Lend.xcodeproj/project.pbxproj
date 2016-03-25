@@ -19,6 +19,7 @@
 		4348B2FD1C99305200190593 /* ContactPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348B2FC1C99305200190593 /* ContactPicker.swift */; };
 		4348B2FF1C99308800190593 /* JavaScriptContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348B2FE1C99308800190593 /* JavaScriptContext.swift */; };
 		43F1A20B1C9A9EA2009ADED7 /* error.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 43F1A20A1C9A9EA2009ADED7 /* error.jpg */; };
+		43F44A061CA3847000213D44 /* ContactUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F44A051CA3847000213D44 /* ContactUploader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		4348B2FC1C99305200190593 /* ContactPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactPicker.swift; sourceTree = "<group>"; };
 		4348B2FE1C99308800190593 /* JavaScriptContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavaScriptContext.swift; sourceTree = "<group>"; };
 		43F1A20A1C9A9EA2009ADED7 /* error.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = error.jpg; sourceTree = "<group>"; };
+		43F44A051CA3847000213D44 /* ContactUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUploader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 				4348B2FA1C99301600190593 /* ExtensionUIImage.swift */,
 				4348B2FC1C99305200190593 /* ContactPicker.swift */,
 				4348B2FE1C99308800190593 /* JavaScriptContext.swift */,
+				43F44A051CA3847000213D44 /* ContactUploader.swift */,
 			);
 			name = code;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				4348B2FF1C99308800190593 /* JavaScriptContext.swift in Sources */,
 				4348B2FD1C99305200190593 /* ContactPicker.swift in Sources */,
 				4348B2F91C992FF200190593 /* ImagePicker.swift in Sources */,
+				43F44A061CA3847000213D44 /* ContactUploader.swift in Sources */,
 				4348B2F31C990CB100190593 /* WebViewController.swift in Sources */,
 				4348B2FB1C99301600190593 /* ExtensionUIImage.swift in Sources */,
 				4348B2D31C990A9C00190593 /* AppDelegate.swift in Sources */,

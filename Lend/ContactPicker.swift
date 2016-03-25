@@ -8,28 +8,38 @@
 
 import Foundation
 import AddressBookUI
+import JavaScriptCore
 
 class ContactPicker:NSObject,ABPeoplePickerNavigationControllerDelegate{
     let controller:WebViewController
+    let jsContext:JSContext
     
-    init(controller:WebViewController){
+    init(controller:WebViewController,jsContext:JSContext){
         self.controller=controller
+        self.jsContext=jsContext
     }
     
     func openContactList(){
-        NSLog("openContact")
         let abcontroll=ABPeoplePickerNavigationController()
         abcontroll.peoplePickerDelegate=self
         abcontroll.predicateForSelectionOfProperty=nil
+        abcontroll.displayedProperties=[NSNumber.init(int:kABPersonPhoneProperty)]
         controller.presentViewController(abcontroll, animated: true, completion: nil)
     }
     
-    func peoplePickerNavigationController(peoplePicker: ABPeoplePickerNavigationController, didSelectPerson person:
-        ABRecord) {
-            NSLog("select a person")
-            let fn=String(ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue())
-            let ln=String(ABRecordCopyValue(person, kABPersonLastNameProperty).takeRetainedValue())
-            print(fn)
-            print(ln)
+    func peoplePickerNavigationController(peoplePicker: ABPeoplePickerNavigationController, didSelectPerson person: ABRecord, property: ABPropertyID, identifier: ABMultiValueIdentifier) {
+        let nums:ABMutableMultiValueRef?=ABRecordCopyValue(person, property).takeRetainedValue()
+        if nums != nil{
+            let i=CFIndex(identifier)
+            returnContact(ABMultiValueCopyValueAtIndex(nums, i).takeRetainedValue() as! String)
+            
+        }
     }
+    
+    func returnContact(contact:String){
+        print(contact)
+        let jsFunc=jsContext.objectForKeyedSubscript("returnContact")
+        jsFunc?.callWithArguments([contact])
+    }
+    
 }
