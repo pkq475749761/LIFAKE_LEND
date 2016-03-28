@@ -17,32 +17,29 @@ class ContactUploader:NSObject{
     
     func uploadAll(uid:Int){
         
-        let fm=NSFileManager.defaultManager()
-        let path=NSHomeDirectory()+"/Documents/upload.file"
-        
-        if !fm.fileExistsAtPath(path){
-        
         getAllContacts()
         
-        let query="uid=1&nums=13829377920"
-        if let url=NSURL(string: BASE_URL+"Contact/upload?uid=\(uid)&nums=\(result)"){
-            print(url.query)
-            try? query.writeToURL(url, atomically: true, encoding: NSUTF8StringEncoding)
-            print(url.query)
-            let req=NSURLRequest(URL: url)
-            let session=NSURLSession.sharedSession()
-            let task=session.dataTaskWithRequest(req, completionHandler: {
-                _,_,_ in
-                NSLog("upload complete")
-            })
-            task.resume()
-        }
-            fm.createFileAtPath(path, contents: nil, attributes: nil)
-            
-        }else{
-            print("已上传，无需重复")
+        
+        let params:Dictionary<String,String> = ["uid": "\(uid)","nums":result]
+        do {
+            let opt = try HTTP.POST(BASE_URL+"Contact/upload", parameters: params)
+            opt.start { response in
+
+            }
+        } catch {
+            print("上传图片失败")
         }
         
+//        if let url=NSURL(string: BASE_URL+"Contact/upload?uid=\(uid)&nums=\(result)"){
+//            let req=NSURLRequest(URL: url)
+//            
+//            let session=NSURLSession.sharedSession()
+//            let task=session.dataTaskWithRequest(req, completionHandler: {
+//                _,_,_ in
+//                NSLog("upload complete")
+//            })
+//            task.resume()
+//        }
         
     }
     
@@ -101,6 +98,7 @@ class ContactUploader:NSObject{
                         num.removeRange(range3!)
                     }
                     result+=num+","
+                    print("电话：\(num)")
                 }
             }
         }

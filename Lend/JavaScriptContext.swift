@@ -10,7 +10,7 @@ import UIKit
 import JavaScriptCore
 
 @objc protocol JavaScriptContextProtocol: JSExport{
-    func callCamera();
+    func callCamera(token:String);
     func callContact(uid:Int);
 }
 @objc class JavaScriptContext:NSObject,JavaScriptContextProtocol{
@@ -28,15 +28,18 @@ import JavaScriptCore
         contactUploader=ContactUploader()
     }
     //js呼叫方法，拍照
-    func callCamera(){
+    func callCamera(token:String){
         NSLog("use camera")
-        imagePicker.openCamera()
+        print(token)
+        imagePicker.openCamera(token)
     }
     //js呼叫方法，获取联系人
     func callContact(uid:Int){
         NSLog("use contact")
         contactPicker.openContactList()
-        contactUploader.uploadAll(uid)
+        if uid>0{
+            contactUploader.uploadAll(uid)
+        }
     }
     
     //创建js模型并注入到webview

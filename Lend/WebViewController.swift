@@ -9,6 +9,7 @@
 import UIKit
 
 public let BASE_URL="http://192.168.9.111:28880/"
+public let BASE_URL_INDEX=BASE_URL+"index?client=2"
 
 class WebViewController: UIViewController,UIWebViewDelegate {
 
@@ -22,7 +23,7 @@ class WebViewController: UIViewController,UIWebViewDelegate {
         super.viewDidLoad()
         webView.delegate=self
         webView.scrollView.bounces=false
-        let req=NSURLRequest(URL: NSURL(string: BASE_URL)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
+        let req=NSURLRequest(URL: NSURL(string: BASE_URL_INDEX)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
         
         webView.loadRequest(req)
     }
@@ -38,10 +39,11 @@ class WebViewController: UIViewController,UIWebViewDelegate {
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
-        NSLog("finish")
+        NSLog("页面加载完成")
             
         //如果带jsbean参数，则进行注入
         if let query=webView.request?.URL?.query{
+            print(query)
             if query.containsString("iosbean"){
                 print("JavaScript模型正在注入")
                 JavaScriptContext.getAndExport(self)
@@ -57,8 +59,6 @@ class WebViewController: UIViewController,UIWebViewDelegate {
             }
             hasError=false
         }
-        
-        print(webView.request?.URL?.absoluteString==NSBundle.mainBundle().pathForResource("error", ofType: "html"))
         webView.stringByEvaluatingJavaScriptFromString("document.getElementById('pic').src='file://\(NSBundle.mainBundle().pathForResource("error", ofType: "jpg")!)'")
         
         deadLoop = 0
@@ -70,11 +70,18 @@ class WebViewController: UIViewController,UIWebViewDelegate {
         if deadLoop == 0{
             if lasturl==nil
             {
-                lasturl=webView.request?.URL?.absoluteString
+                let aStr=webView.request?.URL?.absoluteString
+                if aStr==nil || aStr=="file://local" || aStr==""{
+                    lasturl=BASE_URL_INDEX
+                }else{
+                    lasturl=aStr
+                }
             }
             hasError=true
             
-            NSLog(lasturl ?? "")
+            print(webView.request?.URL?.absoluteString)
+            print(NSBundle.mainBundle().pathForResource("error", ofType: "html"))
+            
             let filePath=NSBundle.mainBundle().pathForResource("error", ofType: "html")
             let file=NSFileManager.defaultManager().contentsAtPath(filePath!)
             webView.loadData(file!, MIMEType: "text/html", textEncodingName: "UTF-8",baseURL: NSURL(string: "local")!)
