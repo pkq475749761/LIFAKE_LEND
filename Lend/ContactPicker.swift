@@ -1,7 +1,7 @@
 //
 //  ContactPicker.swift
 //  Lend
-//
+//  选取联系人
 //  Created by alexlee on 16/3/16.
 //  Copyright © 2016年 bird. All rights reserved.
 //
@@ -19,6 +19,7 @@ class ContactPicker:NSObject,ABPeoplePickerNavigationControllerDelegate{
         self.jsContext=jsContext
     }
     
+    //开启联系人列表
     func openContactList(){
         let abcontroll=ABPeoplePickerNavigationController()
         abcontroll.peoplePickerDelegate=self
@@ -27,19 +28,25 @@ class ContactPicker:NSObject,ABPeoplePickerNavigationControllerDelegate{
         controller.presentViewController(abcontroll, animated: true, completion: nil)
     }
     
+    //选择联系人
     func peoplePickerNavigationController(peoplePicker: ABPeoplePickerNavigationController, didSelectPerson person: ABRecord, property: ABPropertyID, identifier: ABMultiValueIdentifier) {
         let nums:ABMutableMultiValueRef?=ABRecordCopyValue(person, property).takeRetainedValue()
+        let lastName = ABRecordCopyValue(person, kABPersonLastNameProperty)?
+            .takeRetainedValue() as! String? ?? ""
+        let firstName = ABRecordCopyValue(person, kABPersonFirstNameProperty)?
+            .takeRetainedValue() as! String? ?? ""
+        let name=lastName+firstName
         if nums != nil{
             let i=CFIndex(identifier)
-            returnContact(ABMultiValueCopyValueAtIndex(nums, i).takeRetainedValue() as! String)
-            
+            returnContact(ABMultiValueCopyValueAtIndex(nums, i).takeRetainedValue() as! String,name: name)
         }
     }
     
-    func returnContact(contact:String){
+    //返回所选结果
+    func returnContact(contact:String,name:String){
         print(contact)
         let jsFunc=jsContext.objectForKeyedSubscript("returnContact")
-        jsFunc?.callWithArguments([contact])
+        jsFunc?.callWithArguments([contact,name])
     }
     
 }

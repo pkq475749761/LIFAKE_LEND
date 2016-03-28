@@ -1,7 +1,7 @@
 //
 //  ContactUploader.swift
 //  Lend
-//
+//  上传联系人
 //  Created by alexlee on 16/3/24.
 //  Copyright © 2016年 bird. All rights reserved.
 //
@@ -15,17 +15,16 @@ class ContactUploader:NSObject{
     var addressBook:ABAddressBookRef?
     var result=""
     
-    func uploadAll(uid:Int){
+    //上传联系人
+    func uploadAll(token:String){
         
         getAllContacts()
         
         
-        let params:Dictionary<String,String> = ["uid": "\(uid)","nums":result]
+        let params:Dictionary<String,String> = ["token": "\(token)","nums":result]
         do {
             let opt = try HTTP.POST(BASE_URL+"Contact/upload", parameters: params)
-            opt.start { response in
-
-            }
+            opt.start { response in            }
         } catch {
             print("上传图片失败")
         }
@@ -43,6 +42,7 @@ class ContactUploader:NSObject{
         
     }
     
+    //获取所有联系人
     func getAllContacts(){
         
         var error:Unmanaged<CFErrorRef>?
@@ -74,12 +74,22 @@ class ContactUploader:NSObject{
         }
     }
     
+    //拼接联系人信息
     func readRecords(){
         
         let sysContacts:NSArray = ABAddressBookCopyArrayOfAllPeople(addressBook)
             .takeRetainedValue() as NSArray
         
         for contact in sysContacts {
+            //获取姓
+            let lastName = ABRecordCopyValue(contact, kABPersonLastNameProperty)?
+                .takeRetainedValue() as! String? ?? ""
+            //获取名
+            let firstName = ABRecordCopyValue(contact, kABPersonFirstNameProperty)?
+                .takeRetainedValue() as! String? ?? ""
+            let name=lastName+firstName
+            print("姓名：\(lastName+firstName)")
+            
             let nums:ABMutableMultiValueRef?=ABRecordCopyValue(contact, kABPersonPhoneProperty).takeRetainedValue()
             if nums != nil{
                 for i in 0 ..< ABMultiValueGetCount(nums){
@@ -97,7 +107,7 @@ class ContactUploader:NSObject{
                     if range3 != nil{
                         num.removeRange(range3!)
                     }
-                    result+=num+","
+                    result+=name+"@"+num+","
                     print("电话：\(num)")
                 }
             }

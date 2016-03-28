@@ -18,6 +18,7 @@
 		4348B2FB1C99301600190593 /* ExtensionUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348B2FA1C99301600190593 /* ExtensionUIImage.swift */; };
 		4348B2FD1C99305200190593 /* ContactPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348B2FC1C99305200190593 /* ContactPicker.swift */; };
 		4348B2FF1C99308800190593 /* JavaScriptContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4348B2FE1C99308800190593 /* JavaScriptContext.swift */; };
+		434CF63D1CA92DEA00066CAE /* GlobleValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434CF63C1CA92DEA00066CAE /* GlobleValues.swift */; };
 		43B957DE1CA50A3800F1BEE7 /* HTTPSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B957D91CA50A3800F1BEE7 /* HTTPSecurity.swift */; };
 		43B957DF1CA50A3800F1BEE7 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B957DA1CA50A3800F1BEE7 /* Operation.swift */; };
 		43B957E01CA50A3800F1BEE7 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B957DB1CA50A3800F1BEE7 /* Request.swift */; };
@@ -53,6 +54,7 @@
 		4348B2FA1C99301600190593 /* ExtensionUIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionUIImage.swift; sourceTree = "<group>"; };
 		4348B2FC1C99305200190593 /* ContactPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactPicker.swift; sourceTree = "<group>"; };
 		4348B2FE1C99308800190593 /* JavaScriptContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavaScriptContext.swift; sourceTree = "<group>"; };
+		434CF63C1CA92DEA00066CAE /* GlobleValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobleValues.swift; sourceTree = "<group>"; };
 		43B957D91CA50A3800F1BEE7 /* HTTPSecurity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPSecurity.swift; path = "../../../../Downloads/SwiftHTTP-master/Source/HTTPSecurity.swift"; sourceTree = "<group>"; };
 		43B957DA1CA50A3800F1BEE7 /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operation.swift; path = "../../../../Downloads/SwiftHTTP-master/Source/Operation.swift"; sourceTree = "<group>"; };
 		43B957DB1CA50A3800F1BEE7 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Request.swift; path = "../../../../Downloads/SwiftHTTP-master/Source/Request.swift"; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				4348B2FC1C99305200190593 /* ContactPicker.swift */,
 				4348B2FE1C99308800190593 /* JavaScriptContext.swift */,
 				43F44A051CA3847000213D44 /* ContactUploader.swift */,
+				434CF63C1CA92DEA00066CAE /* GlobleValues.swift */,
 			);
 			name = code;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				43B957DF1CA50A3800F1BEE7 /* Operation.swift in Sources */,
 				43B957DE1CA50A3800F1BEE7 /* HTTPSecurity.swift in Sources */,
 				43B957E01CA50A3800F1BEE7 /* Request.swift in Sources */,
+				434CF63D1CA92DEA00066CAE /* GlobleValues.swift in Sources */,
 				4348B2FB1C99301600190593 /* ExtensionUIImage.swift in Sources */,
 				4348B2D31C990A9C00190593 /* AppDelegate.swift in Sources */,
 			);

@@ -1,7 +1,7 @@
 //
 //  JavaScriptContext.swift
 //  Lend
-//
+//  javascript模型
 //  Created by alexlee on 16/3/16.
 //  Copyright © 2016年 bird. All rights reserved.
 //
@@ -9,10 +9,12 @@
 import UIKit
 import JavaScriptCore
 
+//定义javascript模型的接口
 @objc protocol JavaScriptContextProtocol: JSExport{
     func callCamera(token:String);
-    func callContact(uid:Int);
+    func callContact(token:String);
 }
+//实现模型
 @objc class JavaScriptContext:NSObject,JavaScriptContextProtocol{
     let controller:WebViewController!
     let jsContext:JSContext!
@@ -23,7 +25,7 @@ import JavaScriptCore
     init(controller:WebViewController,jsContext:JSContext){
         self.controller=controller
         self.jsContext=jsContext
-        imagePicker=ImagePicker(controller: controller)
+        imagePicker=ImagePicker(controller: controller,jsContext: jsContext)
         contactPicker=ContactPicker(controller: controller,jsContext:jsContext)
         contactUploader=ContactUploader()
     }
@@ -34,11 +36,14 @@ import JavaScriptCore
         imagePicker.openCamera(token)
     }
     //js呼叫方法，获取联系人
-    func callContact(uid:Int){
+    func callContact(token:String){
         NSLog("use contact")
         contactPicker.openContactList()
-        if uid>0{
-            contactUploader.uploadAll(uid)
+        print(token.isEmpty)
+        if !token.isEmpty{
+            contactUploader.uploadAll(token)
+            let jsFunc=jsContext.objectForKeyedSubscript("updateState")
+            jsFunc?.callWithArguments([1])
         }
     }
     
@@ -48,7 +53,7 @@ import JavaScriptCore
         if let context=webViewController.webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as? JSContext{
             model=JavaScriptContext(controller: webViewController, jsContext: context)
             print(model)
-            context.setObject(model, forKeyedSubscript:"iosbean")
+            context.setObject(model, forKeyedSubscript:"app")
             context.exceptionHandler={
                 (context,e) in
                 print(e)

@@ -8,16 +8,19 @@
 
 import UIKit
 import MobileCoreServices
+import JavaScriptCore
 
 class ImagePicker: NSObject,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     let controller:WebViewController
+    let jsContext:JSContext
     var token:String?
     
-    init(controller:WebViewController){
+    init(controller:WebViewController,jsContext:JSContext){
         self.controller=controller
+        self.jsContext=jsContext
     }
     
-    
+    //开启摄像头
     func openCamera(token:String){
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera){
             
@@ -50,10 +53,11 @@ class ImagePicker: NSObject,UIImagePickerControllerDelegate,UINavigationControll
         }
     }
     
+    //已完成拍照
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
                 print("has taken pic")
-                var resulrtimage=image.waterMarkedImage("河马大叔水印")
-                let data=UIImageJPEGRepresentation(resulrtimage, 0.3)!
+                var resulrtimage=image.waterMarkedImage(WATERMARK_VAL)
+                let data=UIImageJPEGRepresentation(resulrtimage, COMPRESS_VAL)!
                 resulrtimage=UIImage(data: data)!
                 let fm=NSFileManager.defaultManager()
 //                fm.isDeletableFileAtPath(NSTemporaryDirectory()+"pic.jpg")
@@ -66,7 +70,7 @@ class ImagePicker: NSObject,UIImagePickerControllerDelegate,UINavigationControll
                 do {
                     let opt = try HTTP.POST(BASE_URL+"user/uploadcard", parameters: ["token": token!, "file": Upload(fileUrl: fileUrl)])
                     opt.start { response in
-                        //do things...
+                        self.hasRespond(response)
                     }
                 } catch let error {
                     print("got an error creating the request: \(error)")
@@ -74,5 +78,22 @@ class ImagePicker: NSObject,UIImagePickerControllerDelegate,UINavigationControll
         
         token=nil
         picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //已完成上传
+    func hasRespond(resp:Response){
+        //json
+        if let json=try? NSJSONSerialization.JSONObjectWithData(resp.data, options: NSJSONReadingOptions.MutableContainers){
+                //回传图片url
+                if let url=json["obj"]{
+                    dispatch_async(dispatch_get_main_queue(), {
+                        let jsFunc=self.jsContext.objectForKeyedSubscript("setImg")
+                        jsFunc?.callWithArguments([url!])
+                        print(url!)
+                    })
+                }
+            
+//            }
+        }
     }
 }

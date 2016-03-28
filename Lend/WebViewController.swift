@@ -1,15 +1,12 @@
 //
 //  WebViewController.swift
 //  Lend
-//
+//  web控制器
 //  Created by alexlee on 16/3/16.
 //  Copyright © 2016年 bird. All rights reserved.
 //
 
 import UIKit
-
-public let BASE_URL="http://192.168.9.111:28880/"
-public let BASE_URL_INDEX=BASE_URL+"index?client=2"
 
 class WebViewController: UIViewController,UIWebViewDelegate {
 
@@ -44,7 +41,7 @@ class WebViewController: UIViewController,UIWebViewDelegate {
         //如果带jsbean参数，则进行注入
         if let query=webView.request?.URL?.query{
             print(query)
-            if query.containsString("iosbean"){
+            if query.containsString("app=true"){
                 print("JavaScript模型正在注入")
                 JavaScriptContext.getAndExport(self)
             }
@@ -59,7 +56,7 @@ class WebViewController: UIViewController,UIWebViewDelegate {
             }
             hasError=false
         }
-        webView.stringByEvaluatingJavaScriptFromString("document.getElementById('pic').src='file://\(NSBundle.mainBundle().pathForResource("error", ofType: "jpg")!)'")
+        webView.stringByEvaluatingJavaScriptFromString("document.getElementById('pic').src='file://\(ERROR_PIC_URL)'")
         
         deadLoop = 0
         
@@ -67,6 +64,7 @@ class WebViewController: UIViewController,UIWebViewDelegate {
     
     //网络不好时加载本地html
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
+        //防止死循环
         if deadLoop == 0{
             if lasturl==nil
             {
@@ -79,11 +77,7 @@ class WebViewController: UIViewController,UIWebViewDelegate {
             }
             hasError=true
             
-            print(webView.request?.URL?.absoluteString)
-            print(NSBundle.mainBundle().pathForResource("error", ofType: "html"))
-            
-            let filePath=NSBundle.mainBundle().pathForResource("error", ofType: "html")
-            let file=NSFileManager.defaultManager().contentsAtPath(filePath!)
+            let file=NSFileManager.defaultManager().contentsAtPath(ERROR_PAGE_URL)
             webView.loadData(file!, MIMEType: "text/html", textEncodingName: "UTF-8",baseURL: NSURL(string: "local")!)
         }
         deadLoop += 1
