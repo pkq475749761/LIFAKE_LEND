@@ -17,7 +17,7 @@ class ContactUploader:NSObject{
     
     //上传联系人
     func uploadAll(token:String){
-        
+        result=""
         getAllContacts()
         
         
@@ -89,6 +89,10 @@ class ContactUploader:NSObject{
                 .takeRetainedValue() as! String? ?? ""
             let name=lastName+firstName
             print("姓名：\(lastName+firstName)")
+            print("\(name.isEmpty),\(name=="")")
+            if name.isEmpty || name==""{
+                continue
+            }
             
             let nums:ABMutableMultiValueRef?=ABRecordCopyValue(contact, kABPersonPhoneProperty).takeRetainedValue()
             if nums != nil{

@@ -32,7 +32,6 @@ import JavaScriptCore
     //js呼叫方法，拍照
     func callCamera(token:String){
         NSLog("use camera")
-        print(token)
         imagePicker.openCamera(token)
     }
     //js呼叫方法，获取联系人
@@ -40,7 +39,7 @@ import JavaScriptCore
         NSLog("use contact")
         contactPicker.openContactList()
         print(token.isEmpty)
-        if !token.isEmpty{
+        if token != ""{
             contactUploader.uploadAll(token)
             let jsFunc=jsContext.objectForKeyedSubscript("updateState")
             jsFunc?.callWithArguments([1])
@@ -53,7 +52,7 @@ import JavaScriptCore
         if let context=webViewController.webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as? JSContext{
             model=JavaScriptContext(controller: webViewController, jsContext: context)
             print(model)
-            context.setObject(model, forKeyedSubscript:"app")
+            context.setObject(model, forKeyedSubscript:JSBEAN_NAME)
             context.exceptionHandler={
                 (context,e) in
                 print(e)

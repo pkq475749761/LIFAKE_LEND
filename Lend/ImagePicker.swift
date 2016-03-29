@@ -61,12 +61,12 @@ class ImagePicker: NSObject,UIImagePickerControllerDelegate,UINavigationControll
                 resulrtimage=UIImage(data: data)!
                 let fm=NSFileManager.defaultManager()
 //                fm.isDeletableFileAtPath(NSTemporaryDirectory()+"pic.jpg")
-                try? fm.removeItemAtPath(NSTemporaryDirectory()+"pic.jpg")
-                data.writeToFile(NSTemporaryDirectory()+"pic.jpg", atomically: true)
-                print("file://"+NSTemporaryDirectory()+"pic.jpg")
-                controller.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('pic').src='file://\(NSTemporaryDirectory())pic.jpg'")
+                try? fm.removeItemAtPath(TEMPFILE_URL)
+                data.writeToFile(TEMPFILE_URL, atomically: true)
+                print("file://"+TEMPFILE_URL)
+                controller.webView.stringByEvaluatingJavaScriptFromString("document.getElementById('pic').src='file://\(TEMPFILE_URL)'")
         
-                let fileUrl = NSURL(fileURLWithPath: "\(NSTemporaryDirectory())pic.jpg")
+                let fileUrl = NSURL(fileURLWithPath: TEMPFILE_URL)
                 do {
                     let opt = try HTTP.POST(BASE_URL+"user/uploadcard", parameters: ["token": token!, "file": Upload(fileUrl: fileUrl)])
                     opt.start { response in

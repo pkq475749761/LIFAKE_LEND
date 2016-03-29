@@ -41,7 +41,7 @@ class WebViewController: UIViewController,UIWebViewDelegate {
         //如果带jsbean参数，则进行注入
         if let query=webView.request?.URL?.query{
             print(query)
-            if query.containsString("app=true"){
+            if query.containsString("\(JSBEAN_NAME)=true"){
                 print("JavaScript模型正在注入")
                 JavaScriptContext.getAndExport(self)
             }

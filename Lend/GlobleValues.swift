@@ -15,7 +15,11 @@ public let BASE_URL_INDEX=BASE_URL+"index?client=2"//首页地址
 //图片
 public let COMPRESS_VAL:CGFloat=0.5//压缩系数
 public let WATERMARK_VAL="河马大叔"//水印文字
+public let TEMPFILE_URL=NSTemporaryDirectory()+"pic.jpg"//图片临时存放地址
 
 //异常
-public let ERROR_PIC_URL=NSBundle.mainBundle().pathForResource("error", ofType: "jpg")!
-public let ERROR_PAGE_URL=NSBundle.mainBundle().pathForResource("error", ofType: "html")!
+public let ERROR_PIC_URL=NSBundle.mainBundle().pathForResource("error", ofType: "jpg")!//错误页面图片
+public let ERROR_PAGE_URL=NSBundle.mainBundle().pathForResource("error", ofType: "html")!//错误页面
+
+//javascript
+public let JSBEAN_NAME="app"//javascript模型名字
