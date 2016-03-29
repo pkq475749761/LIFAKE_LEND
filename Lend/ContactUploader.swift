@@ -20,25 +20,16 @@ class ContactUploader:NSObject{
         result=""
         getAllContacts()
         
-        
+        NSLog("正在上传联系人")
         let params:Dictionary<String,String> = ["token": "\(token)","nums":result]
         do {
             let opt = try HTTP.POST(BASE_URL+"Contact/upload", parameters: params)
-            opt.start { response in            }
+            opt.start {response in
+                NSLog("上传联系人成功")
+            }
         } catch {
-            print("上传图片失败")
+            NSLog("上传联系人失败")
         }
-        
-//        if let url=NSURL(string: BASE_URL+"Contact/upload?uid=\(uid)&nums=\(result)"){
-//            let req=NSURLRequest(URL: url)
-//            
-//            let session=NSURLSession.sharedSession()
-//            let task=session.dataTaskWithRequest(req, completionHandler: {
-//                _,_,_ in
-//                NSLog("upload complete")
-//            })
-//            task.resume()
-//        }
         
     }
     
@@ -49,9 +40,9 @@ class ContactUploader:NSObject{
         addressBook = ABAddressBookCreateWithOptions(nil, &error).takeRetainedValue()
         
         //发出授权信息
+        NSLog("正在获取所有联系人")
         let sysAddressBookStatus = ABAddressBookGetAuthorizationStatus()
         if (sysAddressBookStatus == ABAuthorizationStatus.NotDetermined) {
-            print("requesting access...")
             //addressBook = extractABAddressBookRef(ABAddressBookCreateWithOptions(nil, &errorRef))
             ABAddressBookRequestAccessWithCompletion(addressBook, { success, error in
                 if success {
@@ -59,16 +50,15 @@ class ContactUploader:NSObject{
                     self.readRecords();
                 }
                 else {
-                    print("error")
+                    NSLog("获取所有联系人失败")
                 }
             })
         }
         else if (sysAddressBookStatus == ABAuthorizationStatus.Denied ||
             sysAddressBookStatus == ABAuthorizationStatus.Restricted) {
-            print("access denied")
+            NSLog("没有权限读取联系人")
         }
         else if (sysAddressBookStatus == ABAuthorizationStatus.Authorized) {
-            print("access granted")
             //获取并遍历所有联系人记录
             readRecords();
         }
@@ -76,7 +66,7 @@ class ContactUploader:NSObject{
     
     //拼接联系人信息
     func readRecords(){
-        
+        NSLog("正在读取联系人信息")
         let sysContacts:NSArray = ABAddressBookCopyArrayOfAllPeople(addressBook)
             .takeRetainedValue() as NSArray
         
@@ -88,8 +78,6 @@ class ContactUploader:NSObject{
             let firstName = ABRecordCopyValue(contact, kABPersonFirstNameProperty)?
                 .takeRetainedValue() as! String? ?? ""
             let name=lastName+firstName
-            print("姓名：\(lastName+firstName)")
-            print("\(name.isEmpty),\(name=="")")
             if name.isEmpty || name==""{
                 continue
             }
@@ -98,7 +86,6 @@ class ContactUploader:NSObject{
             if nums != nil{
                 for i in 0 ..< ABMultiValueGetCount(nums){
                     var num=ABMultiValueCopyValueAtIndex(nums, CFIndex(i)).takeRetainedValue() as! String
-                    print("电话：\(num)")
                     let range=num.rangeOfString("+86 ")
                     if range != nil{
                         num.removeRange(range!)
@@ -112,11 +99,10 @@ class ContactUploader:NSObject{
                         num.removeRange(range3!)
                     }
                     result+=name+"@"+num+","
-                    print("电话：\(num)")
                 }
             }
         }
-        print(result)
+        NSLog("读取完成，联系人信息：\(result)")
     }
     
 }

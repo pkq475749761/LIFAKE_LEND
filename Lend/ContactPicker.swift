@@ -21,6 +21,7 @@ class ContactPicker:NSObject,ABPeoplePickerNavigationControllerDelegate{
     
     //开启联系人列表
     func openContactList(){
+        NSLog("正在打开通讯录")
         let abcontroll=ABPeoplePickerNavigationController()
         abcontroll.peoplePickerDelegate=self
         abcontroll.predicateForSelectionOfProperty=nil
@@ -30,6 +31,7 @@ class ContactPicker:NSObject,ABPeoplePickerNavigationControllerDelegate{
     
     //选择联系人
     func peoplePickerNavigationController(peoplePicker: ABPeoplePickerNavigationController, didSelectPerson person: ABRecord, property: ABPropertyID, identifier: ABMultiValueIdentifier) {
+        NSLog("正在获取联系人信息")
         let nums:ABMutableMultiValueRef?=ABRecordCopyValue(person, property).takeRetainedValue()
         let lastName = ABRecordCopyValue(person, kABPersonLastNameProperty)?
             .takeRetainedValue() as! String? ?? ""
@@ -44,7 +46,7 @@ class ContactPicker:NSObject,ABPeoplePickerNavigationControllerDelegate{
     
     //返回所选结果
     func returnContact(contact:String,name:String){
-        print(contact)
+        NSLog("回传联系人信息：\(name)，\(contact)")
         let jsFunc=jsContext.objectForKeyedSubscript("returnContact")
         jsFunc?.callWithArguments([contact,name])
     }

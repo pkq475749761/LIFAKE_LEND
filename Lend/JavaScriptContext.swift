@@ -31,14 +31,11 @@ import JavaScriptCore
     }
     //js呼叫方法，拍照
     func callCamera(token:String){
-        NSLog("use camera")
         imagePicker.openCamera(token)
     }
     //js呼叫方法，获取联系人
     func callContact(token:String){
-        NSLog("use contact")
         contactPicker.openContactList()
-        print(token.isEmpty)
         if token != ""{
             contactUploader.uploadAll(token)
             let jsFunc=jsContext.objectForKeyedSubscript("updateState")
@@ -51,11 +48,10 @@ import JavaScriptCore
         var model:JavaScriptContext?=nil
         if let context=webViewController.webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as? JSContext{
             model=JavaScriptContext(controller: webViewController, jsContext: context)
-            print(model)
             context.setObject(model, forKeyedSubscript:JSBEAN_NAME)
             context.exceptionHandler={
                 (context,e) in
-                print(e)
+                NSLog("创建js模型失败：\(e)")
             }
         }else{
             NSLog("创建js模型失败")
