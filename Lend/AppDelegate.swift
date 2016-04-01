@@ -1,3 +1,4 @@
+
 //
 //  AppDelegate.swift
 //  Lend
@@ -26,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
+        NSLog("设置USER_AGENT：%@",USER_AGENT)
     }
 
     func applicationWillTerminate(application: UIApplication) {

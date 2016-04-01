@@ -46,7 +46,7 @@ class ContactPicker:NSObject,ABPeoplePickerNavigationControllerDelegate{
     
     //返回所选结果
     func returnContact(contact:String,name:String){
-        NSLog("回传联系人信息：\(name)，\(contact)")
+        NSLog("回传联系人信息：%@,%@",name,contact)
         let jsFunc=jsContext.objectForKeyedSubscript("returnContact")
         jsFunc?.callWithArguments([contact,name])
     }

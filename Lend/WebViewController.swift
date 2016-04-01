@@ -17,10 +17,11 @@ class WebViewController: UIViewController,UIWebViewDelegate {
 
     
     override func viewDidLoad() {
+        NSLog("设置USER-AGENT：%@",USER_AGENT)
         super.viewDidLoad()
-        webView.delegate=self
-        webView.scrollView.bounces=false
-        let req=NSURLRequest(URL: NSURL(string: BASE_URL_INDEX)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 5)
+        webView.delegate=self//设置委托
+        webView.scrollView.bounces=false//禁止边界弹回效果
+        let req=NSURLRequest(URL: NSURL(string: BASE_URL_INDEX)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: REQ_INTERVAL)
         
         webView.loadRequest(req)
     }
@@ -36,8 +37,8 @@ class WebViewController: UIViewController,UIWebViewDelegate {
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
-        NSLog("页面加载完成")
-            
+        NSLog("页面加载完成：%@",webView.request?.URL?.absoluteString.stringByRemovingPercentEncoding ?? "获取url失败")
+        
         //如果带jsbean参数，则进行注入
         if let query=webView.request?.URL?.query{
             if query.containsString("\(JSBEAN_NAME)=true"){
@@ -47,9 +48,9 @@ class WebViewController: UIViewController,UIWebViewDelegate {
         }
         
         //往error.html里设置超链接
-        if let url=lasturl {
+        if let lurl=lasturl {
             if hasError{
-                webView.stringByEvaluatingJavaScriptFromString("document.getElementById('reload').href='\(url)'")
+                webView.stringByEvaluatingJavaScriptFromString("document.getElementById('reload').href='\(lurl)'")
             }else{
                 lasturl=nil
             }
@@ -76,8 +77,9 @@ class WebViewController: UIViewController,UIWebViewDelegate {
             }
             hasError=true
             
-            let file=NSFileManager.defaultManager().contentsAtPath(ERROR_PAGE_URL)
-            webView.loadData(file!, MIMEType: "text/html", textEncodingName: "UTF-8",baseURL: NSURL(string: "local")!)
+            if let file=NSFileManager.defaultManager().contentsAtPath(ERROR_PAGE_URL),burl=NSURL(string: "local"){
+                webView.loadData(file, MIMEType: "text/html", textEncodingName: "UTF-8",baseURL: burl)
+            }
         }
         deadLoop += 1
     }

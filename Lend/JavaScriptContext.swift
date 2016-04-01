@@ -51,7 +51,7 @@ import JavaScriptCore
             context.setObject(model, forKeyedSubscript:JSBEAN_NAME)
             context.exceptionHandler={
                 (context,e) in
-                NSLog("创建js模型失败：\(e)")
+                NSLog("创建js模型失败：%@","\(e)")
             }
         }else{
             NSLog("创建js模型失败")

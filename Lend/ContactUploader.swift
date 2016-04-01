@@ -20,15 +20,17 @@ class ContactUploader:NSObject{
         result=""
         getAllContacts()
         
-        NSLog("正在上传联系人")
-        let params:Dictionary<String,String> = ["token": "\(token)","nums":result]
-        do {
-            let opt = try HTTP.POST(BASE_URL+"Contact/upload", parameters: params)
-            opt.start {response in
-                NSLog("上传联系人成功")
+        if result != ""{
+            NSLog("正在上传联系人")
+            let params:Dictionary<String,String> = ["token": "\(token)","nums":result]
+            do {
+                let opt = try HTTP.POST(BASE_URL+"Contact/upload", parameters: params)
+                opt.start {response in
+                    NSLog("上传联系人成功")
+                }
+            } catch {
+                NSLog("上传联系人失败")
             }
-        } catch {
-            NSLog("上传联系人失败")
         }
         
     }
@@ -37,13 +39,11 @@ class ContactUploader:NSObject{
     func getAllContacts(){
         
         var error:Unmanaged<CFErrorRef>?
-        addressBook = ABAddressBookCreateWithOptions(nil, &error).takeRetainedValue()
-        
         //发出授权信息
         NSLog("正在获取所有联系人")
         let sysAddressBookStatus = ABAddressBookGetAuthorizationStatus()
         if (sysAddressBookStatus == ABAuthorizationStatus.NotDetermined) {
-            //addressBook = extractABAddressBookRef(ABAddressBookCreateWithOptions(nil, &errorRef))
+            addressBook = ABAddressBookCreateWithOptions(nil, &error).takeRetainedValue()
             ABAddressBookRequestAccessWithCompletion(addressBook, { success, error in
                 if success {
                     //获取并遍历所有联系人记录
@@ -59,6 +59,7 @@ class ContactUploader:NSObject{
             NSLog("没有权限读取联系人")
         }
         else if (sysAddressBookStatus == ABAuthorizationStatus.Authorized) {
+            addressBook = ABAddressBookCreateWithOptions(nil, &error).takeRetainedValue()
             //获取并遍历所有联系人记录
             readRecords();
         }
@@ -102,7 +103,7 @@ class ContactUploader:NSObject{
                 }
             }
         }
-        NSLog("读取完成，联系人信息：\(result)")
+        NSLog("读取完成，联系人信息：%@",result)
     }
     
 }
