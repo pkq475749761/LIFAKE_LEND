@@ -37,7 +37,10 @@ import JavaScriptCore
     func callContact(token:String){
         contactPicker.openContactList()
         if token != ""{
-            contactUploader.uploadAll(token)
+            dispatch_async(dispatch_get_global_queue(0, 0), {
+                self.contactUploader.uploadAll(token)
+            })
+            print("异步")
             let jsFunc=jsContext.objectForKeyedSubscript("updateState")
             jsFunc?.callWithArguments([1])
         }
