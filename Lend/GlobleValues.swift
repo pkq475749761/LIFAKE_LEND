@@ -11,7 +11,7 @@ import UIKit
 //网络
 public let BASE_URL="http://192.168.9.111:28880/"//域名
 public let BASE_URL_INDEX=BASE_URL+"index?client=2"//首页地址
-public let REQ_INTERVAL:NSTimeInterval=5//超时秒数
+public let REQ_INTERVAL:NSTimeInterval=10//超时秒数
 public let USER_AGENT = getDefaultAgent()
 func getDefaultAgent()->String{
     let webview=UIWebView()
