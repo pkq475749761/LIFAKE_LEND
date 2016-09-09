@@ -9,6 +9,7 @@
 import Foundation
 import AddressBook
 import AddressBookUI
+import SwiftHTTP
 
 class ContactUploader:NSObject{
     

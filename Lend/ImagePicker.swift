@@ -9,6 +9,7 @@
 import UIKit
 import MobileCoreServices
 import JavaScriptCore
+import SwiftHTTP
 
 class ImagePicker: NSObject,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     let controller:WebViewController
